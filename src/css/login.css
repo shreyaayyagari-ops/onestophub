@@ -1,0 +1,140 @@
+/* Applies background only to login page */
+.login-page {
+  font-family: Arial, sans-serif;
+  background-image: url('../../public/images/fc7e53df-a1e3-46c5-ad56-ebcfafebe194.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 520px;
+  box-sizing: border-box;
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+}
+
+.login-button {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  background-color: #0fa5ca;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.login-button:hover {
+  background-color: #0fa5ca;
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  color: #0fa5ca;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.toast {
+  visibility: hidden;
+  max-width: 50%;
+  margin: 0 auto;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 26px;
+  position: fixed;
+  z-index: 1;
+  right: 10px;
+  top: 30px;
+  font-size: 17px;
+  transform: translateX(-50%);
+}
+
+.toast.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 10px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    right: 10px;
+    opacity: 1;
+  }
+  to {
+    right: 0;
+    opacity: 0;
+  }
+}
+
+.toast-success {
+  background-color: rgb(13, 223, 13);
+}
+
+.toast-error {
+  background-color: red;
+}

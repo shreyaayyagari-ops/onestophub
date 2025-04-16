@@ -1,38 +1,453 @@
-.App {
-  text-align: center;
+/* === Import Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* === Global Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
+/* === Base Styles === */
+body {
+  font-family: 'Lato', 'Open Sans', sans-serif;
+  font-weight: 400;
+  background-color: #F9FAFB;
+  color: #111827;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a:focus,
+button:focus,
+.input:focus,
+.searchBox .search-input:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+.header {
+  background-color: #FFFFFF;
+  color: #111827;
+  border-bottom: 1px solid #E5E7EB;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* === Typography === */
+.text-primary {
+  color: #111827;
+}
+
+.text-secondary {
+  color: #6B7280;
+}
+
+.text-disabled {
+  color: #9CA3AF;
+}
+
+.text-link {
+  color: #3B82F6;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.text-link:hover {
+  color: #2563EB;
+}
+
+.text-error {
+  color: #DC2626;
+}
+
+.text-success {
+  color: #16A34A;
+}
+
+.text-warning {
+  color: #D97706;
+}
+
+/* === Inputs and Cards === */
+.input,
+.card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  color: #111827;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* === Logo and Icon Buttons === */
+.logo-link img {
+  height: 48px;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover img {
+  transform: scale(1.1);
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+.menu-icon-btn,
+.icon-btn,
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-icon-btn:hover,
+.icon-btn:hover,
+button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon-transition {
+  transition: color 0.3s ease;
+}
+
+.menu-icon .open-btn {
+  color: #3B82F6;
+}
+
+.menu-icon .close-btn {
+  color: #DC2626;
+}
+
+/* === Search Box === */
+.searchBox {
+  width: 400px;
+  height: 50px;
+  background: #E5E7EB;
+  border-radius: 6px;
+  border: 1px solid #111827;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  margin-left: 20px;
+  gap: 12px;
+}
+
+.search-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.icon-buttons {
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.searchBox .search-icon {
+  color: #3B82F6;
+  font-size: 24px;
+}
+
+.searchBox .search-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: #111827;
+  padding-left: 5px;
+}
+
+/* === Dropdown Menu === */
+.dropdown {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-radius: 8px;
+  opacity: 0;
   pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 1000;
+  border: 1px solid #E5E7EB;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.dropdown.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.dropdown a {
+  display: block;
+  padding: 10px 20px;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown a:hover {
+  background-color: #F3F4F6;
+}
+
+/* === Sidebar === */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #FFFFFF;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: transform 0.4s ease, visibility 0.4s ease;
+  border-right: 1px solid #E5E7EB;
+  border-top: 1px solid #E5E7EB;
+  border-radius: 0 12px 12px 0;
+  z-index: 1000;
+  will-change: transform, visibility;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+  visibility: hidden;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.sidebar-nav {
+  padding: 1rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: #111827;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s, text-shadow 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-link:hover {
+  background-color: #E0F2FE;
+  color: #000;
+}
+
+.sidebar-link.active {
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  border-left: 4px solid #2563EB;
+}
+
+.sidebar-link .icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* === Dark Theme === */
+body.dark-theme {
+  background-color: #1E1E2F;
+  color: #FFFFFF;
+}
+
+body.dark-theme .header {
+  background-color: #2A2A3B;
+  color: #FFFFFF;
+}
+
+body.dark-theme .searchBox {
+  background: #2A2A3B;
+  border: 1px solid #4F46E5;
+}
+
+body.dark-theme .searchBox .search-icon,
+body.dark-theme .searchBox .search-input {
+  color: #FFFFFF;
+}
+
+body.dark-theme .dropdown {
+  background-color: #2A2A3B;
+  border: 1px solid #4F46E5;
+}
+
+body.dark-theme .dropdown a {
+  color: #FFFFFF;
+}
+
+body.dark-theme .dropdown a:hover {
+  background-color: #1E1E2F;
+  color: #FACC15;
+}
+
+/* Dark theme styles */
+body.dark-theme .sidebar {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-theme .sidebar-link {
+  color: #ccc; /* Light text color for dark theme */
+  transition: background-color 0.3s ease;
+}
+
+body.dark-theme .sidebar-link:hover {
+  background-color: #444;
+}
+
+/* Darken the Transactions section specifically */
+body.dark-theme .sidebar-link.active {
+  background-color: #555;
+}
+
+body.dark-theme .sidebar-link.active .icon {
+  color: #fff; /* Change icon color to white when active */
+}
+
+body.dark-theme .sidebar-link:hover {
+  background-color: #666;
+}
+
+/* Darken sub-items of the 'Transactions' section */
+body.dark-theme .sidebar-link.active + .sidebar-subitems {
+  background-color: #444;
+  padding: 5px;
+}
+
+body.dark-theme .sidebar-sublink {
+  color: #ddd; /* Light color for sub-links */
+}
+
+body.dark-theme .sidebar-sublink.active {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark-theme .sidebar-sublink:hover {
+  background-color: #666;
+}
+
+
+body.dark-theme .MuiMenuItem-root:hover {
+  background-color: #1E1E2F;
+  color: #FACC15;
+}
+
+body.dark-theme .input,
+body.dark-theme .card {
+  background-color: #2A2A3B;
+  color: #FFFFFF;
+  border: 1px solid #4F46E5;
+}
+
+.sidebar {
+  width: 240px;
+  background: #f9f9f9;
+  padding: 1rem;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar-link,
+.sidebar-sublink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  color: #333;
+}
+
+.sidebar-link.active,
+.sidebar-sublink.active {
+  font-weight: bold;
+  color: #000;
+}
+
+.sidebar-subitems {
+  padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: transform 0.4s ease, visibility 0.4s ease;
+  border-right: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 12px 12px 0;
+  z-index: 1000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar.closed {
+  transform: translateX(-100%);
+  visibility: hidden;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: -20px;
+  background: #f3f4f6;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #e5e7eb;
 }
