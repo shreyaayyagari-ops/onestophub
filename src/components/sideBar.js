@@ -13,9 +13,26 @@ import {
   MdOutlineSystemUpdateAlt,
 } from "react-icons/md";
 
-const Sidebar = ({ isOpen }) => {
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import { useMediaQuery } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { IoMenu } from "react-icons/io5"; // Icon for the open/close button
+
+const Sidebar = ({ isOpen, toggleDrawer }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const isMobile = useMediaQuery("(max-width:768px)");
+
+  const [openSubMenu, setOpenSubMenu] = React.useState(false);
+
+  const handleSubMenuToggle = () => {
+    setOpenSubMenu((prev) => !prev);
+  };
 
   const menuItems = [
     { label: "Dashboard", icon: <LuLayoutDashboard />, path: "/dashboard" },
@@ -54,45 +71,75 @@ const Sidebar = ({ isOpen }) => {
   ];
 
   return (
-    <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      {/* Navigation */}
-      <nav className="sidebar-nav">
-        {menuItems.map(({ label, icon, path, subItems }) => {
-          const isActive = currentPath === path;
+    <div className="relative">
+      {/* Mobile Sidebar Toggle Button */}
+      {isMobile && !isOpen && (
+        <button
+          className="absolute top-4 left-4 z-50 text-white bg-gray-800 p-2 rounded"
+          onClick={() => toggleDrawer(true)}
+        >
+          <IoMenu size={24} />
+        </button>
+      )}
 
-          return (
-            <React.Fragment key={label}>
-              <Link
-                to={path}
-                className={`sidebar-link ${
-                  currentPath.startsWith(path) ? "active" : ""
-                }`}
-              >
-                <span className="icon">{icon}</span>
-                {isOpen && <span className="label">{label}</span>}
-              </Link>
+      {/* Sidebar Drawer */}
+      <Drawer
+        variant={isMobile ? "temporary" : "permanent"}
+        open={isOpen}
+        onClose={() => toggleDrawer(false)}
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: 240,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <List>
+          {menuItems.map(({ label, icon, path, subItems }) => {
+            const isActive = currentPath.startsWith(path);
 
-              {/* Only show "Transaction Items" when /transactions is active */}
-              {isOpen && subItems && isActive && (
-                <div className="sidebar-subitems">
-                  {subItems.map((subItem) => (
-                    <Link
-                      key={subItem.label}
-                      to={subItem.path}
-                      className={`sidebar-sublink ${
-                        currentPath === subItem.path ? "active" : ""
-                      }`}
-                    >
-                      <span className="label">{subItem.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </React.Fragment>
-          );
-        })}
-      </nav>
-    </aside>
+            return (
+              <React.Fragment key={label}>
+                <ListItemButton
+                  component={Link}
+                  to={path}
+                  selected={isActive}
+                  onClick={() => {
+                    if (isMobile) toggleDrawer(false); // Auto-close drawer on mobile
+                    if (subItems) handleSubMenuToggle();
+                  }}
+                >
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={label} />
+                  {subItems && (openSubMenu ? <ExpandLess /> : <ExpandMore />)}
+                </ListItemButton>
+
+                {subItems && (
+                  <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {subItems.map((subItem) => (
+                        <ListItemButton
+                          key={subItem.label}
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={subItem.path}
+                          selected={currentPath === subItem.path}
+                          onClick={() => isMobile && toggleDrawer(false)}
+                        >
+                          <ListItemText primary={subItem.label} />
+                        </ListItemButton>
+                      ))}
+                    </List>
+                  </Collapse>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </List>
+      </Drawer>
+    </div>
   );
 };
 

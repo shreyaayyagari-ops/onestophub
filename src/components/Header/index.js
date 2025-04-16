@@ -14,7 +14,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const navigate = useNavigate(); // Used for navigation
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -35,17 +35,17 @@ const Header = () => {
 
   return (
     <>
-      <header className="header h-16 w-full px-4 flex items-center shadow-md fixed top-0 left-0 z-50">
-        <div className="header-inner">
-          <Link to="/" className="logo-link ml-4">
-            <img src={logo} alt="Logo" className="logo" />
+      <header className="header h-16 w-full px-4 flex items-center shadow-md fixed top-0 left-0 z-50 bg-white dark:bg-gray-800">
+        <div className="header-inner flex flex-col sm:flex-row w-full items-center sm:justify-between">
+          <Link to="/" className="logo-link mb-2 sm:mb-0 sm:ml-4">
+            <img src={logo} alt="Logo" className="logo h-10" />
           </Link>
 
-          <div className="search-center">
+          <div className="search-center w-full sm:w-1/2 my-2 sm:my-0">
             <SearchBox />
           </div>
 
-          <div className="icon-buttons flex items-center gap-4 ml-auto">
+          <div className="icon-buttons flex items-center gap-4 sm:ml-auto mt-2 sm:mt-0">
             <MdOutlineLightMode
               size={24}
               style={{ color: ICON_COLOR, cursor: "pointer" }}
@@ -61,7 +61,7 @@ const Header = () => {
                   <Button
                     variant="text"
                     {...bindTrigger(popupState)}
-                    className="rounded-full"
+                    className="rounded-full min-w-0"
                   >
                     <CgProfile size={24} />
                   </Button>
@@ -84,7 +84,7 @@ const Header = () => {
         </div>
       </header>
 
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} toggleDrawer={toggleSidebar} />
     </>
   );
 };

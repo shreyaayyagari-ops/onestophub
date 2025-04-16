@@ -1,0 +1,93 @@
+/* Basic Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #333;
+    color: white;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+  }
+  
+  .sidebar-link:hover,
+  .sidebar-link.active {
+    background-color: #444;
+  }
+  
+  .sidebar .icon {
+    margin-right: 10px;
+  }
+  
+  .sidebar-subitems {
+    padding-left: 20px;
+  }
+  
+  .sidebar-sublink {
+    padding: 5px 15px;
+    text-decoration: none;
+    color: #bbb;
+  }
+  
+  .sidebar-sublink:hover {
+    background-color: #555;
+  }
+  
+  /* Mobile Responsive */
+  .sidebar-toggle {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 200px;
+    }
+  
+    .sidebar.open {
+      transform: translateX(0);
+    }
+  
+    .sidebar-toggle {
+      display: block;
+    }
+  
+    .sidebar .label {
+      display: none; /* Hide labels on mobile */
+    }
+  
+    .sidebar-link {
+      justify-content: center;
+    }
+  
+    .sidebar-subitems {
+      padding-left: 0;
+    }
+  }
+  
