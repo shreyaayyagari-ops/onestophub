@@ -1,75 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirecting
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For redirecting
 import "../css/login.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [toast, setToast] = useState({ message: "", type: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const toastRef = useRef(null);
-  const navigate = useNavigate(); // Hook for redirecting
-
-  const emailPattern =
-    /^[a-zA-Z0-9]+[a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.(com|in|org|jnu|ac)$/i;
-  const existingEmails = [
-    "test@domain.com",
-    "example@domain.in",
-    "admin@domain.org",
-  ];
-
-  useEffect(() => {
-    const handlePageShow = (event) => {
-      if (
-        event.persisted ||
-        (window.performance && window.performance.navigation.type === 2)
-      ) {
-        if (!sessionStorage.getItem("reloaded")) {
-          sessionStorage.setItem("reloaded", "true");
-          window.location.reload();
-        }
-      }
-    };
-
-    const handleBeforeUnload = () => {
-      sessionStorage.removeItem("reloaded");
-    };
-
-    window.addEventListener("pageshow", handlePageShow);
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
-  const showToast = (message, type = "error") => {
-    setToast({ message, type });
-    toastRef.current.classList.add("show");
-    setTimeout(() => {
-      toastRef.current.classList.remove("show");
-    }, 3000);
-  };
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
-    const inputEmail = e.target.value.trim().toLowerCase();
-    if (!inputEmail) return setEmail("");
-    if (!emailPattern.test(inputEmail)) {
-      showToast("Invalid email format.");
-      return setEmail("");
-    }
-    if (existingEmails.includes(inputEmail)) {
-      showToast("Email already exists.");
-      return setEmail("");
-    }
-    setEmail(inputEmail);
+    setEmail(e.target.value); // No validation, just set value
   };
 
   const handlePasswordChange = (e) => {
-    const cleaned = e.target.value.replace(/^\s+/, "");
-    setPassword(cleaned);
+    setPassword(e.target.value); // Just set password directly
   };
 
   const togglePasswordVisibility = () => {
@@ -79,8 +24,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Logging in:", { email, password });
-    // Redirect to dashboard
-    navigate("/dashboard");
+    navigate("/dashboard"); // Redirect directly
   };
 
   return (
@@ -90,19 +34,13 @@ const Login = () => {
         <form className="form-horizontal" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={handleEmailChange}
-            />
+            <input type="email" value={email} onChange={handleEmailChange} />
           </div>
 
           <div className="form-group">
             <label>Password</label>
             <input
               type={showPassword ? "text" : "password"}
-              required
               value={password}
               onChange={handlePasswordChange}
             />
@@ -122,10 +60,6 @@ const Login = () => {
 
         <div className="forgot-password">
           <a href="/auth/forgotpassword">Forgot Password?</a>
-        </div>
-
-        <div ref={toastRef} id="toast" className={`toast toast-${toast.type}`}>
-          {toast.message}
         </div>
       </div>
     </div>
