@@ -20,7 +20,7 @@ import Sidebar from "../sideBar"; // your Sidebar component
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // default false for mobile
   const navigate = useNavigate();
 
   const theme = useTheme();
@@ -100,7 +100,7 @@ const Header = () => {
       </header>
 
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} toggleDrawer={toggleSidebar} />
 
       {/* Page Content */}
       <div className="main-content">{/* All Page Content Starts Here */}</div>
