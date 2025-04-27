@@ -20,7 +20,7 @@ import Sidebar from "../sideBar"; // your Sidebar component
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // default false for mobile
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   const theme = useTheme();
