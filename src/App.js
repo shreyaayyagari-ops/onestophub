@@ -75,7 +75,7 @@ function AppContent() {
           }}
         >
           <Routes>
-            <Route path="/" element={<Navigate to="/transactions" replace />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/transactions/items" element={<TransactionItems />} />
