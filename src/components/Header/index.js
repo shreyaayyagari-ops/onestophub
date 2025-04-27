@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/onestophub-logo.png";
 import { IoIosNotifications } from "react-icons/io";
 import { MdSupportAgent, MdOutlineLightMode } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import SearchBox from "../SearchBox";
-import Sidebar from "../sideBar";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  useTheme,
+  useMediaQuery,
+  IconButton,
+  Button,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+
+import logo from "../../assets/images/onestophub-logo.png";
+import SearchBox from "../SearchBox";
+import Sidebar from "../sideBar"; // your Sidebar component
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -35,56 +43,67 @@ const Header = () => {
 
   return (
     <>
-      <header className="header h-16 w-full px-4 flex items-center shadow-md fixed top-0 left-0 z-50 bg-white dark:bg-gray-800">
-        <div className="header-inner flex flex-col sm:flex-row w-full items-center sm:justify-between">
-          <Link to="/" className="logo-link mb-2 sm:mb-0 sm:ml-4">
-            <img src={logo} alt="Logo" className="logo h-10" />
-          </Link>
+      <header className="header">
+        {/* Sidebar Toggle Button (Mobile Only) */}
+        {isMobile && (
+          <IconButton onClick={toggleSidebar}>
+            <MenuIcon />
+          </IconButton>
+        )}
 
-          <div className="search-center w-full sm:w-1/2 my-2 sm:my-0">
-            <SearchBox />
-          </div>
+        {/* Logo */}
+        <Link to="/" className="logo-link">
+          <img src={logo} alt="Logo" className="logo" />
+        </Link>
 
-          <div className="icon-buttons flex items-center gap-4 sm:ml-auto mt-2 sm:mt-0">
-            <MdOutlineLightMode
-              size={24}
-              style={{ color: ICON_COLOR, cursor: "pointer" }}
-              onClick={toggleTheme}
-            />
+        {/* SearchBox */}
+        <div className="searchbox-wrapper">
+          <SearchBox />
+        </div>
 
-            <IoIosNotifications size={24} style={{ cursor: "pointer" }} />
-            <MdSupportAgent size={24} style={{ cursor: "pointer" }} />
+        {/* Right side icons */}
+        <div className="icon-buttons">
+          <MdOutlineLightMode
+            size={24}
+            style={{ color: ICON_COLOR, cursor: "pointer" }}
+            onClick={toggleTheme}
+          />
+          <IoIosNotifications size={24} style={{ cursor: "pointer" }} />
+          <MdSupportAgent size={24} style={{ cursor: "pointer" }} />
 
-            <PopupState variant="popover" popupId="demo-popup-menu">
-              {(popupState) => (
-                <>
-                  <Button
-                    variant="text"
-                    {...bindTrigger(popupState)}
-                    className="rounded-full min-w-0"
+          <PopupState variant="popover" popupId="profile-menu">
+            {(popupState) => (
+              <>
+                <Button
+                  variant="text"
+                  {...bindTrigger(popupState)}
+                  className="rounded-full min-w-0 p-0"
+                >
+                  <CgProfile size={24} />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>My Profile</MenuItem>
+                  <MenuItem onClick={popupState.close}>Settings</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close();
+                      navigate("/logout");
+                    }}
                   >
-                    <CgProfile size={24} />
-                  </Button>
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem onClick={popupState.close}>My Profile</MenuItem>
-                    <MenuItem onClick={popupState.close}>Settings</MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        popupState.close();
-                        navigate("/logout");
-                      }}
-                    >
-                      Logout
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-            </PopupState>
-          </div>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+          </PopupState>
         </div>
       </header>
 
-      <Sidebar isOpen={isSidebarOpen} toggleDrawer={toggleSidebar} />
+      {/* Sidebar */}
+      <Sidebar isOpen={isSidebarOpen} />
+
+      {/* Page Content */}
+      <div className="main-content">{/* All Page Content Starts Here */}</div>
     </>
   );
 };

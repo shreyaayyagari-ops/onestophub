@@ -13,6 +13,7 @@ import "./App.css";
 import "../src/css/dashboard.css";
 import "../src/css/login.css";
 import "../src/css/transaction.css";
+import "../src/css/Header.css";
 
 // Components
 import Header from "./components/Header";

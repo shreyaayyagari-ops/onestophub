@@ -53,7 +53,6 @@ const Dashboard = () => {
     setSelectedMerchant(event.target.value);
   };
 
-  // Info cards data
   const infoBoxes = [
     {
       value: "₹2.5M",
@@ -77,7 +76,6 @@ const Dashboard = () => {
     },
   ];
 
-  // Line chart: Merchant Wire Performance
   const merchantWireData = {
     labels: ["Jan", "Feb", "Mar", "Apr"],
     datasets: [
@@ -91,7 +89,6 @@ const Dashboard = () => {
     ],
   };
 
-  // Bar chart: Transaction Status
   const transactionStatusData = {
     labels: ["Success", "Failed", "Authorized"],
     datasets: [
@@ -103,7 +100,6 @@ const Dashboard = () => {
     ],
   };
 
-  // Radar chart: Top Trades
   const topTradesData = {
     labels: ["Merchant A", "Merchant B", "Merchant C", "Merchant D"],
     datasets: [
@@ -124,7 +120,6 @@ const Dashboard = () => {
     ],
   };
 
-  // Doughnut chart: VPA Usage
   const vpaUsageData = {
     labels: ["Post VPA", "Present VPA", "Used VPA"],
     datasets: [
@@ -137,14 +132,26 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ p: 2, maxWidth: "100%", margin: "auto" }}>
+    <Box
+      sx={{
+        px: { xs: 1, sm: 2, md: 3 },
+        py: 2,
+        maxWidth: "100%",
+        margin: "auto",
+      }}
+    >
       {/* Info Cards */}
       <Grid container spacing={2}>
         {infoBoxes.map((box, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card variant="outlined" sx={{ height: "100%", boxShadow: 2 }}>
               <CardContent>
-                <Typography variant="h5" color="primary" gutterBottom>
+                <Typography
+                  variant="h5"
+                  color="primary"
+                  gutterBottom
+                  sx={{ fontSize: { xs: "1.3rem", md: "1.5rem" } }}
+                >
                   {box.value}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
@@ -172,8 +179,13 @@ const Dashboard = () => {
 
       {/* Merchant Wire Performance */}
       <Box sx={{ mt: 4, mb: 2 }}>
-        <Typography variant="h6">Merchant Wire Performance</Typography>
-        <FormControl sx={{ mt: 2, minWidth: 200 }}>
+        <Typography
+          variant="h6"
+          sx={{ fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" } }}
+        >
+          Merchant Wire Performance
+        </Typography>
+        <FormControl sx={{ mt: 2, minWidth: { xs: "100%", sm: 200 } }}>
           <InputLabel id="merchant-select-label">Select Merchant</InputLabel>
           <Select
             labelId="merchant-select-label"
@@ -186,12 +198,12 @@ const Dashboard = () => {
             <MenuItem value="Merchant C">Merchant C</MenuItem>
           </Select>
         </FormControl>
-        <div style={{ height: "250px", marginTop: "16px" }}>
+        <Box sx={{ height: "250px", width: "100%", mt: 2 }}>
           <Line
             data={merchantWireData}
-            options={{ maintainAspectRatio: false }}
+            options={{ maintainAspectRatio: false, responsive: true }}
           />
-        </div>
+        </Box>
       </Box>
 
       {/* Charts Grid */}
@@ -203,12 +215,12 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ mb: 2 }}>
                 Transaction Status
               </Typography>
-              <div style={{ height: "250px" }}>
+              <Box sx={{ height: "250px", width: "100%" }}>
                 <Bar
                   data={transactionStatusData}
-                  options={{ maintainAspectRatio: false }}
+                  options={{ maintainAspectRatio: false, responsive: true }}
                 />
-              </div>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -220,12 +232,12 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ mb: 2 }}>
                 VPA Usage Stats
               </Typography>
-              <div style={{ height: "250px" }}>
+              <Box sx={{ height: "250px", width: "100%" }}>
                 <Doughnut
                   data={vpaUsageData}
-                  options={{ maintainAspectRatio: false }}
+                  options={{ maintainAspectRatio: false, responsive: true }}
                 />
-              </div>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -237,12 +249,12 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ mb: 2 }}>
                 Top Trades
               </Typography>
-              <div style={{ height: "300px" }}>
+              <Box sx={{ height: "300px", width: "100%" }}>
                 <Radar
                   data={topTradesData}
-                  options={{ maintainAspectRatio: false }}
+                  options={{ maintainAspectRatio: false, responsive: true }}
                 />
-              </div>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

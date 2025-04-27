@@ -1,0 +1,99 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  height: 64px;
+  width: 100%;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo-link .logo {
+  height: 40px;
+  width: auto;
+}
+
+/* SearchBox Center */
+.search-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 1rem;
+}
+
+/* Icon Buttons */
+.icon-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Main Content */
+.main-content {
+  padding-top: 70px; /* Header height + margin */
+  padding-left: 240px; /* Sidebar space */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 0;
+    padding-top: 70px;
+  }
+}
+
+/* Mobile View (<= 480px) */
+@media (max-width: 480px) {
+  .header-inner {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .search-center {
+    display: none; /* Hide Search on small devices */
+  }
+
+  .icon-buttons {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .icon-buttons > * {
+    flex: 0 0 auto;
+  }
+
+  .logo {
+    max-height: 36px;
+  }
+}
+
+/* Light & Dark Themes */
+.light-theme {
+  background-color: #F9FAFB;
+  color: #111827;
+}
+
+.dark-theme {
+  background-color: #1F2937;
+  color: #FFFFFF;
+}
