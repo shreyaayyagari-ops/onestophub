@@ -1,14 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Drawer,
-  useMediaQuery,
-  Box,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Drawer, useMediaQuery, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { LuLayoutDashboard, LuSquareAsterisk } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
