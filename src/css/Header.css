@@ -1,44 +1,33 @@
-/* Base Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Header */
+/* Header Styles */
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #ffffff;
-  height: 64px;
-  width: 100%;
+  height: 70px;
   padding: 0 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 50;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
+  z-index: 1000;
 }
 
 /* Logo */
-.logo-link .logo {
+.logo-link {
+  display: flex;
+  align-items: center;
+}
+.logo {
   height: 40px;
-  width: auto;
 }
 
-/* SearchBox Center */
-.search-center {
+/* SearchBox */
+.searchbox-wrapper {
   flex: 1;
-  display: flex;
-  justify-content: center;
   margin: 0 1rem;
+  max-width: 400px;
 }
 
 /* Icon Buttons */
@@ -48,52 +37,25 @@
   gap: 1rem;
 }
 
-/* Main Content */
+/* Main Content Below Header */
 .main-content {
-  padding-top: 70px; /* Header height + margin */
-  padding-left: 240px; /* Sidebar space */
+  padding-top: 80px; /* enough space below header */
+  padding-left: 240px; /* assuming Sidebar width */
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .searchbox-wrapper {
+    display: none; /* Hide search on mobile */
+  }
+
   .main-content {
-    padding-left: 0;
-    padding-top: 70px;
+    padding-left: 0; /* Remove sidebar space on mobile */
   }
 }
 
-/* Mobile View (<= 480px) */
 @media (max-width: 480px) {
-  .header-inner {
-    flex-direction: row;
-    gap: 0.5rem;
-  }
-
-  .search-center {
-    display: none; /* Hide Search on small devices */
-  }
-
-  .icon-buttons {
-    gap: 0.5rem;
+  .header {
     flex-wrap: wrap;
   }
-
-  .icon-buttons > * {
-    flex: 0 0 auto;
-  }
-
-  .logo {
-    max-height: 36px;
-  }
-}
-
-/* Light & Dark Themes */
-.light-theme {
-  background-color: #F9FAFB;
-  color: #111827;
-}
-
-.dark-theme {
-  background-color: #1F2937;
-  color: #FFFFFF;
 }

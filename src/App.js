@@ -86,6 +86,7 @@ function AppContent() {
             <Route path="/merchant" element={<Merchant />} />
             <Route
               path="/merchant/transactions"
+              path="/merchant/transactions"
               element={<TransactionSubPage />}
             />
             <Route path="/payout" element={<Payout />} />
@@ -122,3 +123,4 @@ function App() {
 }
 
 export default App;
+////////
